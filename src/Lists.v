@@ -14,7 +14,7 @@ Prelude> myLast ['x','y','z']
 *)
 
 Require Import List.
-Module Import LN := ListNotations.
+Import ListNotations.
 Require Import Datatypes.
 Require Import Ascii.
 
