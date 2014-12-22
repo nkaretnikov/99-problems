@@ -167,3 +167,53 @@ Proof.
       rewrite element_at_zero in IHyt. inversion IHyt.
       apply IHyt.
 Qed.
+
+(** * Problem 4
+
+    Find the number of elements of a list.
+
+    Example in Haskell:
+<<
+Prelude> myLength [123, 456, 789]
+3
+Prelude> myLength "Hello, world!"
+13
+>>
+*)
+
+Fixpoint my_length {X:Type} (xs:list X) : nat :=
+  match xs with
+    | []    => 0
+    | _::xt => 1 + my_length xt
+  end.
+
+Example my_length1:
+  my_length [123; 456; 789] = 3.
+Proof. reflexivity. Qed.
+Open Scope char_scope.
+Example my_length2:
+  my_length ["H";"e";"l";"l";"o";",";" ";"w";"o";"r";"l";"d";"!"] = 13.
+Proof. reflexivity. Qed.
+Close Scope char_scope.
+
+Theorem my_length_nil : forall (X:Type),
+  @my_length X [] = 0.
+Proof. reflexivity. Qed.
+
+Theorem my_length_eq_length : forall (X:Type) (xs:list X),
+  my_length xs = length xs.
+Proof.
+  intros.
+  induction xs as [|x xt].
+    reflexivity.
+    simpl. apply f_equal. apply IHxt.
+Qed.
+
+Theorem my_length_app : forall (X:Type) (xs ys:list X),
+  my_length xs + my_length ys = my_length (xs ++ ys).
+Proof.
+  intros.
+  induction xs as [|x xt].
+    reflexivity.
+    simpl. apply f_equal. apply IHxt.
+Qed.
