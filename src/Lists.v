@@ -104,3 +104,66 @@ Proof.
         inversion IHzt.
         reflexivity.
 Qed.
+
+(** * Problem 3
+
+    Find the K'th element of a list. The first element in the list is
+    number 1.
+
+    Example:
+<<
+* (element-at '(a b c d e) 3)
+c
+>>
+
+    Example in Haskell:
+<<
+Prelude> elementAt [1,2,3] 2
+2
+Prelude> elementAt "haskell" 5
+'e'
+>>
+*)
+
+Fixpoint element_at {X:Type} (xs:list X) (n:nat) : option X :=
+  match xs with
+    | []    => None
+    | x::xt => match n with
+                 | 0    => None
+                 | 1    => Some x
+                 | S n' => element_at xt n'
+               end
+  end.
+
+Example element_at1:
+  element_at [1;2;3] 2 = Some 2.
+Proof. reflexivity. Qed.
+Open Scope char_scope.
+Example element_at2:
+  element_at ["h";"a";"s";"k";"e";"l";"l"] 5 = Some "e".
+Proof. reflexivity. Qed.
+Close Scope char_scope.
+
+Theorem element_at_nil : forall (X:Type) (n:nat),
+  @element_at X [] n = None.
+Proof. reflexivity. Qed.
+
+Theorem element_at_zero : forall (X:Type) (xs:list X),
+  element_at xs 0 = None.
+Proof.
+  intros.
+  destruct xs as [|x xt].
+    reflexivity.
+    reflexivity.
+Qed.
+
+Theorem element_at_app : forall (X:Type) (xs:list X) (x:X),
+  element_at (app xs [x]) (length xs + 1) = Some x.
+Proof.
+  intros.
+  induction xs as [|y yt].
+    reflexivity.
+    simpl. destruct (length yt + 1).
+      rewrite element_at_zero in IHyt. inversion IHyt.
+      apply IHyt.
+Qed.
