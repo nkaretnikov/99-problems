@@ -93,6 +93,74 @@ Since partial functions are not allowed, we need to provide the
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">IHyt</span>.<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">apply</span> <span class="id" type="var">IHyt</span>.<br/>
 <span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+</div>
+
+<div class="doc">
+<a name="lab2"></a><h1 class="section">Problem 2</h1>
+
+
+<div class="paragraph"> </div>
+
+    Find the last but one element of a list.
+    (Note that the Lisp transcription of this problem is incorrect.)
+
+<div class="paragraph"> </div>
+
+    Example in Haskell:
+<pre>
+Prelude&gt; myButLast [1,2,3,4]
+3
+Prelude&gt; myButLast ['a'..'z']
+'y'
+</pre>
+
+</div>
+<div class="code">
+
+<br/>
+<span class="id" type="keyword">Fixpoint</span> <a name="myButLast"><span class="id" type="definition">myButLast</span></a> {<span class="id" type="var">X</span>:<span class="id" type="keyword">Type</span>} (<span class="id" type="var">xs</span>:<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="Lists.html#X"><span class="id" type="variable">X</span></a>) : <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#option"><span class="id" type="inductive">option</span></a> <a class="idref" href="Lists.html#X"><span class="id" type="variable">X</span></a> :=<br/>
+&nbsp;&nbsp;<span class="id" type="keyword">match</span> <a class="idref" href="Lists.html#xs"><span class="id" type="variable">xs</span></a> <span class="id" type="keyword">with</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_']'"><span class="id" type="notation">[]</span></a> | <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">[</span></a><span class="id" type="var">_</span><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">]</span></a> =&gt; <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#None"><span class="id" type="constructor">None</span></a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">[</span></a><span class="id" type="var">x</span><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a><span class="id" type="var">_</span><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">]</span></a>    =&gt; <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#Some"><span class="id" type="constructor">Some</span></a> <span class="id" type="var">x</span><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;| <span class="id" type="var">_</span><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'::'_x"><span class="id" type="notation">::</span></a><span class="id" type="var">xt</span>    =&gt; <a class="idref" href="Lists.html#myButLast"><span class="id" type="definition">myButLast</span></a> <span class="id" type="var">xt</span><br/>
+&nbsp;&nbsp;<span class="id" type="keyword">end</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Example</span> <a name="myButLast1"><span class="id" type="definition">myButLast1</span></a>:<br/>
+&nbsp;&nbsp;<a class="idref" href="Lists.html#myButLast"><span class="id" type="definition">myButLast</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">[</span></a>1<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a>2<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a>3<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a>4<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">]</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#Some"><span class="id" type="constructor">Some</span></a> 3.<br/>
+<span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+<span class="id" type="keyword">Open</span> <span class="id" type="keyword">Scope</span> <span class="id" type="var">char_scope</span>.<br/>
+<span class="id" type="keyword">Example</span> <a name="myButLast2"><span class="id" type="definition">myButLast2</span></a>:<br/>
+&nbsp;&nbsp;<a class="idref" href="Lists.html#myButLast"><span class="id" type="definition">myButLast</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">[</span></a>"a"<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a>"b"<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a>"c"<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a>"d"<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">]</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#Some"><span class="id" type="constructor">Some</span></a> "c".<br/>
+<span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+<span class="id" type="keyword">Close</span> <span class="id" type="keyword">Scope</span> <span class="id" type="var">char_scope</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <a name="myButLast_nil"><span class="id" type="lemma">myButLast_nil</span></a> : <span class="id" type="keyword">forall</span> <span class="id" type="var">X</span>:<span class="id" type="keyword">Type</span>,<br/>
+&nbsp;&nbsp;@<a class="idref" href="Lists.html#myButLast"><span class="id" type="definition">myButLast</span></a> <a class="idref" href="Lists.html#X"><span class="id" type="variable">X</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_']'"><span class="id" type="notation">[]</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#None"><span class="id" type="constructor">None</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <a name="myButLast_one"><span class="id" type="lemma">myButLast_one</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span>:<span class="id" type="keyword">Type</span>) (<span class="id" type="var">x</span>:<a class="idref" href="Lists.html#X"><span class="id" type="variable">X</span></a>),<br/>
+&nbsp;&nbsp;<a class="idref" href="Lists.html#myButLast"><span class="id" type="definition">myButLast</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">[</span></a><a class="idref" href="Lists.html#x"><span class="id" type="variable">x</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">]</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#None"><span class="id" type="constructor">None</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>. <span class="id" type="tactic">reflexivity</span>. <span class="id" type="keyword">Qed</span>.<br/>
+
+<br/>
+<span class="id" type="keyword">Theorem</span> <a name="myButLast_app"><span class="id" type="lemma">myButLast_app</span></a> : <span class="id" type="keyword">forall</span> (<span class="id" type="var">X</span>:<span class="id" type="keyword">Type</span>) (<span class="id" type="var">xs</span>:<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#list"><span class="id" type="inductive">list</span></a> <a class="idref" href="Lists.html#X"><span class="id" type="variable">X</span></a>) (<span class="id" type="var">x</span>:<a class="idref" href="Lists.html#X"><span class="id" type="variable">X</span></a>) (<span class="id" type="var">y</span>:<a class="idref" href="Lists.html#X"><span class="id" type="variable">X</span></a>),<br/>
+&nbsp;&nbsp;<a class="idref" href="Lists.html#myButLast"><span class="id" type="definition">myButLast</span></a> (<a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#app"><span class="id" type="definition">app</span></a> <a class="idref" href="Lists.html#xs"><span class="id" type="variable">xs</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">[</span></a><a class="idref" href="Lists.html#x"><span class="id" type="variable">x</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a><a class="idref" href="Lists.html#y"><span class="id" type="variable">y</span></a><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">]</span></a>) <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic.html#:type_scope:x_'='_x"><span class="id" type="notation">=</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#Some"><span class="id" type="constructor">Some</span></a> <a class="idref" href="Lists.html#x"><span class="id" type="variable">x</span></a>.<br/>
+<span class="id" type="keyword">Proof</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">intros</span>.<br/>
+&nbsp;&nbsp;<span class="id" type="tactic">induction</span> <span class="id" type="var">xs</span> <span class="id" type="keyword">as</span> [|<span class="id" type="var">z</span> <span class="id" type="var">zt</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">simpl</span>. <span class="id" type="tactic">destruct</span> (<span class="id" type="var">zt</span> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes.html#:list_scope:x_'++'_x"><span class="id" type="notation">++</span></a> <a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">[</span></a><span class="id" type="var">x</span><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">;</span></a><span class="id" type="var">y</span><a class="idref" href="http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Lists.List.html#ListNotations.:list_scope:'['_x_';'_'..'_';'_x_']'"><span class="id" type="notation">]</span></a>).<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">IHzt</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">rewrite</span> <span class="id" type="var">IHzt</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">destruct</span> <span class="id" type="var">l</span> <span class="id" type="keyword">as</span> [|<span class="id" type="var">n</span> <span class="id" type="var">nt</span>].<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">inversion</span> <span class="id" type="var">IHzt</span>.<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="id" type="tactic">reflexivity</span>.<br/>
+<span class="id" type="keyword">Qed</span>.<br/>
 </div>
 </div>
 
