@@ -21,28 +21,28 @@ Require Import Ascii.
 (** Since partial functions are not allowed, we need to provide the
     default value or use something like the [option] type. *)
 
-Fixpoint myLast {X:Type} (xs:list X) : option X :=
+Fixpoint my_last {X:Type} (xs:list X) : option X :=
   match xs with
     | nil    => None
     | x::nil => Some x
-    | _::xt  => myLast xt
+    | _::xt  => my_last xt
   end.
 
-Example myLast1:
-  myLast [1;2;3;4] = Some 4.
+Example my_last1:
+  my_last [1;2;3;4] = Some 4.
 Proof. reflexivity. Qed.
 Open Scope char_scope.
-Example myLast2:
-  myLast ["x";"y";"z"] = Some "z".
+Example my_last2:
+  my_last ["x";"y";"z"] = Some "z".
 Proof. reflexivity. Qed.
 Close Scope char_scope.
 
-Theorem myLast_nil : forall X:Type,
-  @myLast X [] = None.
+Theorem my_last_nil : forall X:Type,
+  @my_last X [] = None.
 Proof. reflexivity. Qed.
 
-Theorem myLast_app : forall (X:Type) (xs : list X) (x : X),
-  myLast (app xs [x]) = Some x.
+Theorem my_last_app : forall (X:Type) (xs : list X) (x : X),
+  my_last (app xs [x]) = Some x.
 Proof.
   intros.
   induction xs as [|y yt].
@@ -67,32 +67,32 @@ Prelude> myButLast ['a'..'z']
 >>
 *)
 
-Fixpoint myButLast {X:Type} (xs:list X) : option X :=
+Fixpoint my_but_last {X:Type} (xs:list X) : option X :=
   match xs with
     | [] | [_] => None
     | [x;_]    => Some x
-    | _::xt    => myButLast xt
+    | _::xt    => my_but_last xt
   end.
 
-Example myButLast1:
-  myButLast [1;2;3;4] = Some 3.
+Example my_but_last1:
+  my_but_last [1;2;3;4] = Some 3.
 Proof. reflexivity. Qed.
 Open Scope char_scope.
-Example myButLast2:
-  myButLast ["a";"b";"c";"d"] = Some "c".
+Example my_but_last2:
+  my_but_last ["a";"b";"c";"d"] = Some "c".
 Proof. reflexivity. Qed.
 Close Scope char_scope.
 
-Theorem myButLast_nil : forall X:Type,
-  @myButLast X [] = None.
+Theorem my_but_last_nil : forall X:Type,
+  @my_but_last X [] = None.
 Proof. reflexivity. Qed.
 
-Theorem myButLast_one : forall (X:Type) (x:X),
-  myButLast [x] = None.
+Theorem my_but_last_one : forall (X:Type) (x:X),
+  my_but_last [x] = None.
 Proof. reflexivity. Qed.
 
-Theorem myButLast_app : forall (X:Type) (xs:list X) (x:X) (y:X),
-  myButLast (app xs [x;y]) = Some x.
+Theorem my_but_last_app : forall (X:Type) (xs:list X) (x:X) (y:X),
+  my_but_last (app xs [x;y]) = Some x.
 Proof.
   intros.
   induction xs as [|z zt].
