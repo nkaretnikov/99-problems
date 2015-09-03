@@ -28,6 +28,20 @@ Fixpoint my_last {X:Type} (xs:list X) : option X :=
     | _::xt  => my_last xt
   end.
 
+(*
+Two notes about the extractor:
+
+* Prelude is imported qualified by default, so some names need to be adjusted.
+
+* The order of value constructors is important.  If you swap Just and Nothing, the
+  latter will be generated with a parameter.
+*)
+
+Extraction Language Haskell.
+Extract Inductive list => "[]" [ "[]" "(:)" ].
+Extract Inductive option => "Prelude.Maybe" [ "Prelude.Just" "Prelude.Nothing" ].
+Extraction "Lists.hs" my_last.
+
 Example my_last1:
   my_last [1;2;3;4] = Some 4.
 Proof. reflexivity. Qed.
